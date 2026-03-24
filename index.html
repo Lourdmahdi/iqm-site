@@ -1,200 +1,123 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IQM Services</title>
-  <style>
-    * { box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
-    body {
-      margin:0;
-      font-family:Tahoma, Arial, sans-serif;
-      background:linear-gradient(180deg,#130c2a 0%,#0d1018 100%);
-      color:#fff;
-    }
-    .wrap { max-width:760px; margin:0 auto; padding:0 14px 30px; }
-    .top-banner {
-      position:sticky; top:0; z-index:50;
-      background:rgba(11,14,25,.88); backdrop-filter:blur(10px);
-      border-bottom:1px solid rgba(255,255,255,.08);
-      padding:10px 14px;
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
-    }
-    .top-banner .owner { color:#fff; font-size:15px; font-weight:700; }
-    .top-banner .link a { color:#7dd3fc; text-decoration:none; font-weight:700; }
-    .splash {
-      margin:16px 0 18px;
-      border-radius:28px;
-      overflow:hidden;
-      background:
-        radial-gradient(circle at top right, rgba(154,70,255,.45), transparent 35%),
-        radial-gradient(circle at left center, rgba(112,39,255,.25), transparent 28%),
-        linear-gradient(135deg,#160c35 0%, #110f2a 45%, #1e0646 100%);
-      border:1px solid rgba(255,255,255,.08);
-      box-shadow:0 18px 40px rgba(0,0,0,.26);
-      position:relative;
-    }
-    .splash::before {
-      content:"";
-      position:absolute; inset:0;
-      background:
-        radial-gradient(circle at 20% 30%, rgba(255,255,255,.12), transparent 15%),
-        radial-gradient(circle at 80% 15%, rgba(170,110,255,.22), transparent 22%),
-        radial-gradient(circle at 70% 75%, rgba(115,50,255,.25), transparent 25%);
-      pointer-events:none;
-    }
-    .splash-inner { position:relative; padding:34px 22px 28px; min-height:340px; }
-    .logo { font-size:44px; font-weight:900; letter-spacing:2px; margin-bottom:10px; }
-    .splash-tag {
-      display:inline-block; margin:10px 0 16px; padding:8px 16px; border-radius:999px;
-      background:#5ef000; color:#101010; font-weight:700; font-size:14px;
-      box-shadow:0 10px 20px rgba(94,240,0,.25);
-    }
-    .splash h1 { margin:0 0 14px; line-height:1.15; font-size:38px; }
-    .splash p { margin:0; max-width:520px; color:#ede9fe; line-height:1.8; font-size:15px; }
-    .splash-note { margin-top:20px; display:flex; gap:10px; flex-wrap:wrap; }
-    .mini-pill {
-      background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.08);
-      border-radius:999px; padding:8px 12px; font-size:12px; color:#ddd;
-    }
-    .cta-row { margin-top:22px; display:flex; gap:12px; flex-wrap:wrap; }
-    .cta-btn {
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:14px 22px; border-radius:999px; text-decoration:none; font-weight:700;
-      font-size:16px; border:1px solid rgba(255,255,255,.08);
-    }
-    .cta-primary { background:#5ef000; color:#111; }
-    .cta-secondary { background:rgba(255,255,255,.08); color:#fff; }
-    .section-title { font-size:22px; margin:20px 2px 14px; }
-    .plans {
-      display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:18px;
-    }
-    .plan {
-      background:rgba(28,36,65,.96); border:1px solid rgba(255,255,255,.07); border-radius:22px; padding:18px;
-      box-shadow:0 10px 20px rgba(0,0,0,.16);
-    }
-    .plan h3 { margin:0 0 10px; font-size:17px; line-height:1.5; }
-    .plan .sub { color:#cbd5e1; font-size:13px; margin-bottom:10px; }
-    .plan .tags { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
-    .tag { display:inline-block; padding:7px 10px; border-radius:10px; font-size:12px; font-weight:700; }
-    .price { background:#22c55e; color:#fff; }
-    .time { background:#fbbf24; color:#3b2d00; }
-    .plan a {
-      display:block; text-align:center; text-decoration:none; background:#7c3aed; color:#fff;
-      padding:12px 14px; border-radius:14px; font-weight:700;
-    }
-    .hero { text-align:center; padding:6px 6px 18px; }
-    .hero h2 { margin:0; font-size:34px; letter-spacing:1px; }
-    .hero p { margin:10px 0 0; color:#b7bcc8; line-height:1.7; font-size:15px; }
-    .search {
-      width:100%; background:#090d17; color:#fff; border:1px solid #3d4458;
-      border-radius:22px; padding:18px; font-size:18px; outline:none; margin-bottom:12px;
-    }
-    .search::placeholder { color:#9aa0aa; }
-    .searchBtn {
-      width:100%; border:none; border-radius:22px; background:#7547cb; color:#fff; padding:18px;
-      font-size:22px; margin-bottom:18px; cursor:pointer;
-    }
-    .brands { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-bottom:18px; }
-    .brand {
-      border:none; border-radius:22px; color:#fff; padding:22px 10px; font-size:19px; cursor:pointer;
-      box-shadow:0 10px 18px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.05);
-      opacity:.92; transition:all .18s ease; position:relative;
-    }
-    .brand.active { outline:3px solid #fff; outline-offset:1px; transform:scale(.98); opacity:1; }
-    .brand.active::after { content:"✓"; position:absolute; top:10px; left:14px; font-size:16px; font-weight:700; }
-    .all {background:#7547cb;} .xiaomi {background:#e19a4a;} .samsung {background:#5e84d1;}
-    .oppo {background:#6ea676;} .vivo {background:#68a7bf;} .tecno {background:#d6b451; color:#111;}
-    .infinix {background:#67ad63;} .realme {background:#1f9d55;} .other {background:#4a546c;}
-    .status { display:flex; justify-content:space-between; gap:12px; color:#c0c5d0; font-size:14px; margin:8px 2px 14px; flex-wrap:wrap; }
-    .results-title { font-size:18px; margin:10px 2px 14px; color:#fff; }
-    .cards { display:flex; flex-direction:column; gap:14px; }
-    .card {
-      background:rgba(17,24,39,.88); border:1px solid rgba(255,255,255,.08); border-radius:24px; padding:16px;
-      box-shadow:0 10px 20px rgba(0,0,0,.18); scroll-margin-top: 20px;
-    }
-    .brand-line { color:#9ca3af; font-size:12px; margin-bottom:6px; }
-    .card h3 { margin:0 0 12px; font-size:20px; color:#fff; }
-    .meta { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px; }
-    .box { background:#0b1222; border:1px solid rgba(255,255,255,.06); border-radius:18px; padding:12px; min-height:72px; }
-    .label { color:#9ca3af; font-size:12px; margin-bottom:6px; }
-    .value { color:#fff; font-size:15px; word-break:break-word; line-height:1.5; }
-    .funcLabel { color:#9ca3af; font-size:12px; margin-bottom:8px; }
-    .badges { display:flex; flex-wrap:wrap; gap:7px; }
-    .badge { display:inline-block; padding:8px 11px; border-radius:999px; font-size:12px; color:#fff; white-space:nowrap; }
-    .s {background:#16a34a;} .d {background:#dc2626;} .p {background:#2563eb;} .i {background:#0891b2;}
-    .w {background:#d97706;} .od {background:#5b21b6;} .x {background:#6b7280;}
-    .empty { display:none; text-align:center; color:#b7bcc8; padding:26px 10px; font-size:18px; }
-    .support-float {
-      position:fixed; left:18px; bottom:22px; z-index:99;
-      width:64px; height:64px; border-radius:50%;
-      background:linear-gradient(135deg,#22c55e,#16a34a);
-      display:flex; align-items:center; justify-content:center;
-      text-decoration:none; color:#fff; font-size:28px; box-shadow:0 14px 30px rgba(34,197,94,.35);
-      animation:pulse 1.8s infinite;
-    }
-    .support-float::after {
-      content:"دعم فني"; position:absolute; bottom:72px; left:0;
-      background:#fff; color:#111; padding:6px 10px; border-radius:999px; font-size:12px; font-weight:700;
-      box-shadow:0 8px 20px rgba(0,0,0,.18); white-space:nowrap;
-    }
-    @keyframes pulse {
-      0% { transform:scale(1); box-shadow:0 0 0 0 rgba(34,197,94,.45), 0 14px 30px rgba(34,197,94,.35); }
-      70% { transform:scale(1.05); box-shadow:0 0 0 14px rgba(34,197,94,0), 0 14px 30px rgba(34,197,94,.35); }
-      100% { transform:scale(1); box-shadow:0 0 0 0 rgba(34,197,94,0), 0 14px 30px rgba(34,197,94,.35); }
-    }
-    .footer { text-align:center; color:#aeb4bf; font-size:14px; margin-top:20px; padding-bottom:70px; }
-    @media (max-width:640px) {
-      .plans { grid-template-columns:1fr; }
-      .splash h1 { font-size:32px; }
-      .hero h2 { font-size:30px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IQM Services</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background:linear-gradient(135deg,#2b004f,#5a008a);
+    color:#fff;
+    scroll-behavior:smooth;
+}
+.container{
+    text-align:center;
+    padding:40px 20px;
+}
+h1{
+    font-size:28px;
+    margin-bottom:20px;
+}
+.btn{
+    background:#4CAF50;
+    padding:12px 25px;
+    border-radius:10px;
+    text-decoration:none;
+    color:#fff;
+    display:inline-block;
+    margin-top:20px;
+}
+.section{
+    padding:30px 15px;
+}
+.card{
+    background:#fff;
+    color:#000;
+    padding:15px;
+    margin:10px 0;
+    border-radius:12px;
+}
+.search{
+    padding:10px;
+    width:90%;
+    border-radius:10px;
+    border:none;
+}
+.footer{
+    margin-top:30px;
+    font-size:14px;
+    opacity:0.8;
+}
+.floating{
+    position:fixed;
+    bottom:20px;
+    left:20px;
+    background:#0088cc;
+    color:#fff;
+    padding:12px;
+    border-radius:50%;
+    text-decoration:none;
+}
+</style>
 </head>
+
 <body>
-  <div class="top-banner">
-    <div class="owner">الحقوق محفوظة — سيد مهدي</div>
-    <div class="link"><a href="https://t.me/YLXXX" target="_blank">رابط الدعم الفني</a></div>
-  </div>
 
-  <div class="wrap">
-    <section class="splash">
-      <div class="splash-inner">
-        <div class="logo">IQM</div>
-        <div class="splash-tag">اطلب الآن</div>
-        <h1>خدمات السوفت وير<br>المتكاملة</h1>
-        <p>حلول احترافية للأجهزة والأنظمة مع اشتراكات Unlock Tool الخاصة بك، وبحث سريع داخل الأجهزة المدعومة، ودعم فني مباشر عبر تليجرام فقط.</p>
-        <div class="splash-note">
-          <span class="mini-pill">Xiaomi</span>
-          <span class="mini-pill">Samsung</span>
-          <span class="mini-pill">Infinix</span>
-          <span class="mini-pill">Oppo</span>
-          <span class="mini-pill">Vivo</span>
-          <span class="mini-pill">Realme</span>
-          <span class="mini-pill">Tecno</span>
-          <span class="mini-pill">Huawei</span>
-        </div>
-        <div class="cta-row">
-          <a class="cta-btn cta-primary" href="#plans">ابدأ الآن</a>
-          <a class="cta-btn cta-secondary" href="https://t.me/YLXXX" target="_blank">دعم فني</a>
-        </div>
-      </div>
-    </section>
+<div class="container">
+    <h1>خدمات السوفت وير المتكاملة</h1>
+    <a href="#plans" class="btn">ابدأ الآن</a>
 
-    <div id="plans" class="section-title">اشتراكات Unlock Tool</div>
-    <section class="plans">
-      <div class="plan">
-        <h3>UnlockTool 12 months License Active/Renew</h3>
-        <div class="sub">Unlock Tool ✅✅✅</div>
-        <div class="tags">
-          <span class="tag price">$42.094</span>
-          <span class="tag time">1-60 Minutes</span>
-        </div>
-        <a href="https://t.me/YLXXX" target="_blank">اشترك الآن عبر تليجرام</a>
-      </div>
-      <div class="plan">
-        <h3>UnlockTool 6 months License Active/Renew</h3>
+    <div class="footer">
+        حقوق: سيد مهدي<br>
+        واتساب: 07749777756 - 07845556556<br><br>
+        📍 ذي قار – الشطرة – شارع عدل – قرب جامع السنة<br>
+        مركز ربيعي – سيد مهدي
+    </div>
+</div>
+
+<div class="section">
+    <h2>الأجهزة المدعومة</h2>
+    <input type="text" class="search" placeholder="بحث عن شركة...">
+    
+    <div class="card">Xiaomi</div>
+    <div class="card">Samsung</div>
+    <div class="card">Infinix</div>
+    <div class="card">Oppo</div>
+    <div class="card">Vivo</div>
+    <div class="card">Realme</div>
+    <div class="card">Tecno</div>
+    <div class="card">Huawei</div>
+
+    <p>إجمالي الأجهزة: 1179</p>
+</div>
+
+<div class="section" id="plans">
+    <h2>اشتراكات Unlock Tool</h2>
+
+    <div class="card">
+        3 أشهر - 16$<br>
+        <a href="https://t.me/YLXXX" class="btn">اشتراك</a>
+    </div>
+
+    <div class="card">
+        6 أشهر - 25$<br>
+        <a href="https://t.me/YLXXX" class="btn">اشتراك</a>
+    </div>
+
+    <div class="card">
+        12 شهر - 42$<br>
+        <a href="https://t.me/YLXXX" class="btn">اشتراك</a>
+    </div>
+</div>
+
+<a href="https://t.me/YLXXX" class="floating">💬</a>
+
+</body>
+</html>
+3>
         <div class="sub">Unlock Tool ✅✅✅</div>
         <div class="tags">
           <span class="tag price">$25.423</span>
